@@ -31,13 +31,12 @@ struct heap {
     size_t size;
     size_t alloc_size;
     size_t init_size;
+    int last_key;
 };
 
 #include "heap.h"
 
 /* Internal functions */
-
-
 
 void destroy_heapnode(struct __heapnode *node, void (*__dest_func) (void*)) {
     if (node == NULL) return;
@@ -159,18 +158,17 @@ void destroy_heap(Heap *heap, void (*__dest_func) (void*)) {
 }
 
 void *heap_peek(Heap *heap) {
-    LAST_KEY = INT_MAX;
     if (heap == NULL) return NULL;
+    heap->last_key = INT_MAX;
     if (heap->root == NULL) return NULL;
-    LAST_KEY = (heap->root)[0].key;
-    return (heap->root)[0].data;
+    heap->last_key = (heap->root)[0].key;
 }
 
 void *heap_pop(Heap *heap) {
     void *data;
 
-    LAST_KEY = INT_MAX;
     if (heap == NULL) return NULL;
+    heap->last_key = INT_MAX;
     if (heap->size == 0) return NULL;
 
     heap->size = heap->size - 1;
@@ -178,7 +176,7 @@ void *heap_pop(Heap *heap) {
         heapnode_swap( &((heap->root)[0]), &((heap->root)[heap->size]) );
     }
 
-    LAST_KEY = (heap->root)[heap->size].key;
+    heap->last_key = (heap->root)[heap->size].key;
     data = heap->root[heap->size].data;
 
     downheap(heap, 0);

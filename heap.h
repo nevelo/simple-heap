@@ -29,8 +29,6 @@
 
 typedef struct heap Heap;
 
-int LAST_KEY;
-
 /* Creates a new heap, given an initial size.  The heap will need to be freed
    with a call to destroy_heap() after use. */
 Heap *create_heap(size_t init_size);

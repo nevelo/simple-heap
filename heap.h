@@ -58,4 +58,10 @@ void *heap_push(Heap *heap, void *data, int key);
    heap, returns -1. */
 size_t heap_get_size(Heap *heap);
 
+/* Returns the value of the last accessed heap node key. If the heap is not a 
+   valid heap (eg, you pass this function a null pointer), the function returns
+   -1. Note that -1 may *also* be returned if the heap was last accessed when
+   empty. */
+int heap_get_last_key(Heap *heap);
+   
 #endif

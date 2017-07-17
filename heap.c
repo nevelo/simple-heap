@@ -162,6 +162,7 @@ void *heap_peek(Heap *heap) {
     heap->last_key = INT_MAX;
     if (heap->root == NULL) return NULL;
     heap->last_key = (heap->root)[0].key;
+    return (heap->root)[0].data;
 }
 
 void *heap_pop(Heap *heap) {
@@ -198,10 +199,16 @@ void *heap_push(Heap *heap, void *data, int key) {
     (heap->root)[new_position].key = key;
     heap->size = heap->size + 1;
     upheap(heap, new_position);
+    heap->last_key = key;
     return heap;
 }
 
 size_t heap_get_size(Heap *heap) {
     if (heap == NULL) return -1;
     return heap->size;
+}
+
+int heap_get_last_key(Heap *heap) {
+    if (heap == NULL) return -1;
+    return heap->last_key;
 }
